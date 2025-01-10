@@ -7,14 +7,14 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
+
  
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
         const response = await fetch(
-          'http://www.omdbapi.com/?s=super&apikey=a4d98298'
+          `http://www.omdbapi.com/?s=${searchTerm || 'super'}&apikey=a4d98298`
         );
         const data = await response.json();
         if (data.Search) {
@@ -26,7 +26,7 @@ function App() {
     };
 
     fetchMovies();
-  }, []);
+  }, [searchTerm]);
 
   return (
     <div>
@@ -52,7 +52,7 @@ function App() {
       <main>
         <div className="card-layout">
           {movies.map((movie) => (
-            <div className="card">
+            <div className="card" >
               <div className='image-container'>
             <img 
               src={movie.Poster || 'https://via.placeholder.com/300x200'} 
